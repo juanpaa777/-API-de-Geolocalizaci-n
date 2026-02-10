@@ -32,7 +32,16 @@ flask_geolocalizacion/
 - Diseño responsive y moderno
 - Animaciones y transiciones suaves
 - Colores gradientes y estilos atractivos
+## Evidencia del Funcionamiento
 
+### Captura 1 – Pantalla principal de búsqueda
+<img width="1904" height="1088" alt="image" src="https://github.com/user-attachments/assets/7176ccd7-4bfe-4e75-af96-c3aab70423ef" />
+### Captura 2 – Resultado de la búsqueda con coordenadas
+<img width="1919" height="1103" alt="image" src="https://github.com/user-attachments/assets/474b487a-5852-4d70-b39d-085cb998b0dd" />
+### Captura 3 – Mapa interactivo con marcador
+<img width="1823" height="922" alt="image" src="https://github.com/user-attachments/assets/c19f5b4e-fa6f-4ffd-b69a-2fa1b4ed7778" />
+
+---
 ## Tecnologías Utilizadas
 
 ### Backend
