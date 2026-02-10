@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de Geolocalización - {{ search_query }}</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Resultado de Geolocalización</h1>
+            <div class="location-info">
+                <h2>{{ location }}</h2>
+                <p class="coordinates">Latitud: {{ lat }} | Longitud: {{ lon }}</p>
+            </div>
+        </header>
+
+        <main>
+            <div id="map" class="map-container"></div>
+            
+            <div class="map-controls">
+                <button onclick="zoomIn()" class="control-btn">Ampliar</button>
+                <button onclick="zoomOut()" class="control-btn">Reducir</button>
+                <button onclick="resetView()" class="control-btn">Vista Inicial</button>
+                <a href="/" class="back-btn">Nueva Búsqueda</a>
+            </div>
+
+            <section class="details-section">
+                <h3>Información de la Ubicación</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="label">Término de búsqueda:</span>
+                        <span class="value">{{ search_query }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Nombre completo:</span>
+                        <span class="value">{{ location }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Latitud:</span>
+                        <span class="value">{{ lat }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Longitud:</span>
+                        <span class="value">{{ lon }}</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="api-info">
+                <h3>Información Técnica</h3>
+                <div class="api-details">
+                    <p><strong>Servicio de geocodificación:</strong> OpenStreetMap Nominatim</p>
+                    <p><strong>Protocolo:</strong> HTTP GET</p>
+                    <p><strong>Formato de respuesta:</strong> JSON</p>
+                    <p><strong>Identificador de cliente:</strong> FlaskGeolocationApp/1.0</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2024 Sistema de Geolocalización | Mapas generados con Leaflet.js y OpenStreetMap</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Inicializar el mapa
+        var map = L.map('map').setView([{{ lat }}, {{ lon }}], 15);
+
+        // Añadir capa de tiles de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Añadir marcador en la ubicación
+        var marker = L.marker([{{ lat }}, {{ lon }}]).addTo(map);
+        marker.bindPopup('<b>{{ search_query }}</b><br>{{ location }}').openPopup();
+
+        // Funciones de control del mapa
+        function zoomIn() {
+            map.zoomIn();
+        }
+
+        function zoomOut() {
+            map.zoomOut();
+        }
+
+        function resetView() {
+            map.setView([{{ lat }}, {{ lon }}], 15);
+        }
+
+        // Animación de entrada
+        document.addEventListener('DOMContentLoaded', function() {
+            const mapContainer = document.getElementById('map');
+            mapContainer.style.opacity = '0';
+            setTimeout(() => {
+                mapContainer.style.transition = 'opacity 1s ease-in';
+                mapContainer.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

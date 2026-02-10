@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Geolocalización Corporativo</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+    
+    <div class="container">
+        <header class="glass-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h1>GeoFinder Pro</h1>
+                </div>
+                <p>Plataforma avanzada de geolocalización y análisis espacial</p>
+            </div>
+        </header>
+
+        <main>
+            {% if error %}
+            <div class="error-message">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <div class="search-container">
+                <form action="/search" method="POST" class="search-form glass-card">
+                    <div class="search-wrapper">
+                        <div class="input-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="location" 
+                            placeholder="🔍 Busca cualquier lugar del mundo..." 
+                            required
+                            class="search-input"
+                        >
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-location-arrow"></i>
+                            <span>Buscar</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <section class="features-section">
+                <div class="section-header">
+                    <h2>Características Avanzadas</h2>
+                    <p>Herramientas profesionales para análisis geográfico</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Geocodificación Precisa</h3>
+                        <p>Conversión exacta de direcciones a coordenadas usando tecnología OpenStreetMap</p>
+                        <div class="feature-stats">
+                            <span class="stat">99.8%</span>
+                            <span class="stat-label">Precisión</span>
+                        </div>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3>Visualización 3D</h3>
+                        <p>Mapas interactivos con múltiples capas y controles avanzados de navegación</p>
+                        <div class="feature-stats">
+                            <span class="stat">360°</span>
+                            <span class="stat-label">Visión</span>
+                        </div>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Rendimiento Ultra</h3>
+                        <p>Arquitectura optimizada para respuestas en milisegundos y alta escalabilidad</p>
+                        <div class="feature-stats">
+                            <span class="stat">&lt;100ms</span>
+                            <span class="stat-label">Respuesta</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="popular-section">
+                <div class="section-header">
+                    <h2>Destinos Populares</h2>
+                    <p>Explora los lugares más buscados globalmente</p>
+                </div>
+                <div class="popular-grid">
+                    <div class="popular-card glass-card" data-location="Ciudad de México">
+                        <div class="card-image">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Ciudad de México</h4>
+                            <span class="location-tag">Capital</span>
+                        </div>
+                    </div>
+                    <div class="popular-card glass-card" data-location="Torre Eiffel, París">
+                        <div class="card-image">
+                            <i class="fas fa-monument"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Torre Eiffel</h4>
+                            <span class="location-tag">París, Francia</span>
+                        </div>
+                    </div>
+                    <div class="popular-card glass-card" data-location="Times Square, Nueva York">
+                        <div class="card-image">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Times Square</h4>
+                            <span class="location-tag">Nueva York, USA</span>
+                        </div>
+                    </div>
+                    <div class="popular-card glass-card" data-location="Machu Picchu, Perú">
+                        <div class="card-image">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Machu Picchu</h4>
+                            <span class="location-tag">Perú</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="glass-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>GeoFinder Pro</h4>
+                    <p>Tecnología de geolocalización de última generación</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Tecnología</h4>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">OpenStreetMap</span>
+                        <span class="tech-tag">Leaflet</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>© 2024</h4>
+                    <p>Desarrollado con ❤️ y tecnología moderna</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
